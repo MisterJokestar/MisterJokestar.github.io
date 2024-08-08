@@ -1,43 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html id="all">
   <head>
-    <style>
-        html, body 
-        {
-            height: 100%;
-            background-color: #615055;
-            display: flex;
-            flex-direction: column;
-        }
-        div 
-        {
-            text-align: center;
-            text-size-adjust: auto;
-            background-color: #CDD5D1;
-            margin: 10%;
-            margin-top: 0%;
-            margin-bottom: 0%;
-            height:inherit;
-        }
-        h1
-        {
-            color: #615055;
-        }
-        a
-        {
-            color: #615055;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
     <title>James Wall</title>
   </head>
   <body>
-      <img src="images/soyjakjames.png" alt="Picture of James Pointing" style="width: 25%; position: absolute; z-index: 2; left: 0%;">
-      <div style="position: relative; z-index: 1;">
-          <h1>-- James Wall --</h1>
-          <p>I am a Computer Science Student, at <a href="https://www.wcu.edu/">Western Carolina University</a></p>
-          <a href="JWResume/JWResume.pdf" download">View my Resume!</a>
-          <a href="JWResume/JWResume.tex" download">LaTeX Download</a>
-        <br>
+      <div id="main-back">
+          <h1 class="text">-- James Wall --</h1>
+          <p>I am a Computer Science Student, at <a class="text-link" href="https://www.wcu.edu/">Western Carolina University</a></p>
+          <a class="text-link" href="JWResume/JWResume.pdf" download>View my Resume!</a>
+          <a class="text-link" href="JWResume/JWResume.tex" download>LaTeX Download</a>
+          <br>
+        </div>
+    <img src="images/soyjakjames.png" alt="Picture of James Pointing" 
+        style="width: 25%; position: absolute; z-index: 2; left: 0%;">
+    <div id="night-toggle">
+        <button id="night-toggle-b">Toggle Night Mode</button>
     </div>
   </body>
 </html>

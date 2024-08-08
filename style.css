@@ -1,0 +1,33 @@
+html, body 
+{
+    height: 100%;
+    background-color: #615055;
+    display: flex;
+    flex-direction: column;
+}
+#main-back 
+{
+    text-align: center;
+    text-size-adjust: auto;
+    background-color: #CDD5D1;
+    margin: 10%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    height:inherit;
+    position: relative; 
+    z-index: 1;
+}
+#night-toggle
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+h1
+{
+    color: #615055;
+}
+a
+{
+    color: #615055;
+}
