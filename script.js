@@ -63,17 +63,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function changeColors()
     {
-        document.getElementById("all").style.backgroundColor = backColor;
-        document.body.style.backgroundColor = backColor;
-        document.getElementById("main-back").style.backgroundColor = foreColor;
-        document.getElementById("main-back").style.color = textColor;
-        for (var element of document.getElementsByClassName("text"))
+        var all = document.getElementById("all");
+        if (all != null)
         {
-            element.style.color = textColor;
+            all.style.backgroundColor = backColor;
         }
-        for (var element of document.getElementsByClassName("text-link"))
+        document.body.style.backgroundColor = backColor;
+        var mainBack = document.getElementById("main-back");
+        if (mainBack != null)
         {
-            element.style.color = linkColor
+            mainBack.style.backgroundColor = foreColor;
+            mainBack.style.color = textColor;
+        }
+        var textArray = document.getElementsByClassName("text");
+        if (textArray != null)
+        {
+            for (var element of textArray)
+            {
+                element.style.color = textColor;
+            }
+        }
+        var textCustomArray = document.getElementsByClassName("customfont");
+        if (textArray != null)
+        {
+            for (var element of textArray)
+            {
+                element.style.color = textColor;
+            }
+        }
+        var textLinkArray = document.getElementsByClassName("text-link");
+        if (textLinkArray != null)
+        {
+            for (var element of textLinkArray)
+            {
+                element.style.color = linkColor;
+            }
         }
     }
 

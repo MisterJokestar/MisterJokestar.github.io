@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html id="all">
+    <head>
+        <script src="words.js"></script>
+        <script src="scramble.js"></script>
+
+        <link rel="stylesheet" href="../style.css">
+        <script src="../script.js"></script>
+    </head>
+    <body>
+        <div id="main-back">
+            <h1 id="scramble" class="customfont">Hit start!</h1>
+            <p id="reveal"></p>
+            <p id="score"></p>
+            <p id="word"></p>
+            <button id="start"> start! </button>
+            <input type="text" id="guess">
+            <button id="submit"> Guess! </button>
+            <button id="hint"> Need A Hint? </button>
+            <br>
+            <p id="message"></p>
+            <script>
+                const start = document.getElementById("start");
+                start.addEventListener('click', playGame);
+
+                const text = document.getElementById("submit");
+                text.addEventListener('click', submitWord)
+
+                const input = document.getElementById("guess");
+                input.addEventListener('keypress', function (event)
+                    {
+                        if (event.keyCode == 13) {
+                            submitWord();
+                        }
+                    })
+                const hint = document.getElementById("hint");
+                hint.addEventListener('click', getHint)
+            </script>
+        </div>
+        <div id="night-toggle">
+            <button id="night-toggle-b">Toggle Night Mode</button>
+        </div>
+    </body>
+</html>
