@@ -12,7 +12,6 @@ html, body
 #main-back 
 {
     text-align: center;
-    text-size-adjust: auto;
     background-color: #CDD5D1;
     margin: 10%;
     margin-top: 0%;
@@ -39,4 +38,16 @@ a
 h1.customfont { 
     font-family: "CuteNotes", Verdana, Tahoma;
     font-size: 50px;
+}
+#instructions
+{
+    background-color: #CDD5D1;
+    text-align: center;
+    margin: 10%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    position: fixed;
+    z-index: 2;
+    right: 10%;
+    left: 10%;
 }

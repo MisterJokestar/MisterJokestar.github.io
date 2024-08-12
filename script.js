@@ -75,6 +75,11 @@ document.addEventListener("DOMContentLoaded", function() {
             mainBack.style.backgroundColor = foreColor;
             mainBack.style.color = textColor;
         }
+        var instructions = document.getElementById("instructions");
+        if (instructions != null)
+        {
+            instructions.style.backgroundColor = foreColor;
+        }
         var textArray = document.getElementsByClassName("text");
         if (textArray != null)
         {
@@ -84,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         var textCustomArray = document.getElementsByClassName("customfont");
-        if (textArray != null)
+        if (textCustomArray != null)
         {
-            for (var element of textArray)
+            for (var element of textCustomArray)
             {
                 element.style.color = textColor;
             }

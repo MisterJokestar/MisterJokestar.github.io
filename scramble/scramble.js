@@ -190,3 +190,34 @@ function playGame()
     document.getElementById("score").innerHTML = "Score: 0  |  Hints Used: 0";
     document.getElementById("start").innerHTML = "New Word!";
 }
+
+document.addEventListener("DOMContentLoaded", () =>{
+    const start = document.getElementById("start");
+    start.addEventListener('click', playGame);
+
+    const text = document.getElementById("submit");
+    text.addEventListener('click', submitWord)
+
+    const input = document.getElementById("guess");
+    input.addEventListener('keypress', (event) =>
+        {
+            if (event.key == "Enter") {
+                submitWord();
+            }
+        })
+
+    const hint = document.getElementById("hint");
+    hint.addEventListener('click', getHint);
+
+    const showInstructions = document.getElementById("show-instructions");
+    showInstructions.addEventListener('click', () => 
+        {
+            document.getElementById("instructions").hidden = false;
+        });
+
+    const hideInstructions = document.getElementById("hide-instructions");
+    hideInstructions.addEventListener('click', () => 
+        {
+            document.getElementById("instructions").hidden = true
+        });
+});
