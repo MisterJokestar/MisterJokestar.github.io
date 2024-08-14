@@ -68,10 +68,10 @@ class Game
             this.wordNum = num;
         }
         this.word = this.longWords[this.wordNum]
-        this.scramble = this.word.shuffle();
+        this.scramble = this.words[this.word].shuffle();
         this.testedWords = [];
         this.score = 0;
-        for (var i = 0; i < this.word.length; i++)
+        for (var i = 0; i < this.scramble.length; i++)
         {
             this.reveal.push("_");
         }
@@ -87,7 +87,7 @@ class Game
         }
         else if (this.words.includes(test))
         {
-            var chars_word = this.word.split("");
+            var chars_word = this.scramble.split("");
             var chars_test = test.split("");
             for (var char of chars_test)
             {
@@ -112,16 +112,16 @@ class Game
     {
         if (this.score >=2)
         {
-            if (this.reveal != this.word)
+            if (this.reveal != this.words[this.word])
             {
                 this.hintNum += 1;
                 this.score -= 2;
-                var revealNum = Math.floor(Math.random() * (this.word.length - this.hintNum))
+                var revealNum = Math.floor(Math.random() * (this.scramble.length - this.hintNum))
                 while (this.reveal[revealNum] != "_")
                 {
                     revealNum++;
                 }
-                this.reveal[revealNum] = this.word[revealNum];
+                this.reveal[revealNum] = this.words[this.word][revealNum];
                 return true
             }
             else
@@ -140,21 +140,23 @@ class Game
 function submitWord()
 {
     var game = new Game(JSON.parse(localStorage.getItem("game-object")));
-    var guess = document.getElementById("guess").value.toUpperCase();
+    var guess = document.getElementById("guess").value.trim().toUpperCase();
     if (game.testInput(guess))
     {
-        if (game.word == guess)
+        if (game.words[game.word] == guess)
         {
             game.score += 5;
             game.message = "You unscrambled the word!"
-            game.reveal = game.word;
-            document.getElementById("scramble").innerHTML = game.word;
+            game.reveal = game.words[game.word];
+            document.getElementById("scramble").innerHTML = game.words[game.word];
             document.getElementById("reveal").innerHTML = "";
+            document.getElementById("used-words").innerHTML = "<li> * " + guess + " * </li>" + document.getElementById("used-words").innerHTML
         }
         else
         {
             game.score++;
             game.message = "You found a word!"
+            document.getElementById("used-words").innerHTML = "<li> " + guess + " </li>" + document.getElementById("used-words").innerHTML
         }
     }
     localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
