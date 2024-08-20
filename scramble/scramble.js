@@ -112,11 +112,11 @@ class Game
     {
         if (this.score >=2)
         {
-            if (this.reveal != this.words[this.word])
+            if ((this.reveal != this.words[this.word]) && (this.hintNum != this.scramble.length))
             {
-                this.hintNum += 1;
                 this.score -= 2;
                 var revealNum = Math.floor(Math.random() * (this.scramble.length - this.hintNum))
+                this.hintNum += 1;
                 while (this.reveal[revealNum] != "_")
                 {
                     revealNum++;
@@ -126,7 +126,14 @@ class Game
             }
             else
             {
-                this.message = "You already guessed the word!"
+                if (this.hintNum == this.scramble.length)
+                {
+                    this.message = "There are no more hints to give!"
+                }
+                else
+                {
+                    this.message = "You already guessed the word!"
+                }
             }
         }
         else
@@ -141,6 +148,10 @@ function submitWord()
 {
     var game = new Game(JSON.parse(localStorage.getItem("game-object")));
     var guess = document.getElementById("guess").value.trim().toUpperCase();
+    document.getElementById("guess").value = "";
+    var scramble = undefined;
+    var reveal = undefined;
+    var usedWords = undefined;
     if (game.testInput(guess))
     {
         if (game.words[game.word] == guess)
@@ -148,35 +159,33 @@ function submitWord()
             game.score += 5;
             game.message = "You unscrambled the word!"
             game.reveal = game.words[game.word];
-            document.getElementById("scramble").innerHTML = game.words[game.word];
-            document.getElementById("reveal").innerHTML = "";
-            document.getElementById("used-words").innerHTML = "<li> * " + guess + " * </li>" + document.getElementById("used-words").innerHTML
+            scramble = game.words[game.word];
+            reveal = "";
+            usedWords = "<li> * " + guess + " * </li>" + document.getElementById("used-words").innerHTML
         }
         else
         {
             game.score++;
             game.message = "You found a word!"
-            document.getElementById("used-words").innerHTML = "<li> " + guess + " </li>" + document.getElementById("used-words").innerHTML
+            usedWords = "<li> " + guess + " </li>" + document.getElementById("used-words").innerHTML
         }
     }
     localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
 
-    document.getElementById("word").innerHTML = guess;
-    document.getElementById("message").innerHTML = game.message;
-    document.getElementById("score").innerHTML = ("Score: " + game.score + "  |  Hints Used: " + game.hintNum);
+    UpdateHtml(scramble, guess, game.message, reveal, ("Score: " + game.score + "  |  Hints Used: " + game.hintNum), undefined, usedWords);
 }
 
 function getHint()
 {
     var game = new Game(JSON.parse(localStorage.getItem("game-object")));
+    var hint = undefined;
     if (game.hint())
     {
-        document.getElementById("reveal").innerHTML = game.reveal.join(" ");
+        hint = game.reveal.join(" ");
     }
     localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
 
-    document.getElementById("message").innerHTML = game.message;
-    document.getElementById("score").innerHTML = ("Score: " + game.score + "  |  Hints Used: " + game.hintNum);
+    UpdateHtml(undefined, undefined, game.message, hint, ("Score: " + game.score + "  |  Hints Used: " + game.hintNum), undefined, undefined);
 }
 
 function playGame()
@@ -184,14 +193,26 @@ function playGame()
     var game = new Game();
     game.createScramble();
     localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
+    UpdateHtml(game.scramble, "", "", "", "Score: 0  |  Hints Used: 0", "New Word!", "");
+}
 
-    document.getElementById("scramble").innerHTML = game.scramble;
-    document.getElementById("word").innerHTML = "";
-    document.getElementById("message").innerHTML = "";
-    document.getElementById("reveal").innerHTML = "";
-    document.getElementById("score").innerHTML = "Score: 0  |  Hints Used: 0";
-    document.getElementById("start").innerHTML = "New Word!";
-    document.getElementById("used-words").innerHTML = "";
+function UpdateHtml(
+    scramble = document.getElementById("scramble").innerHTML, 
+    word = document.getElementById("word").innerHTML, 
+    message = document.getElementById("message").innerHTML, 
+    reveal = document.getElementById("reveal").innerHTML, 
+    score = document.getElementById("score").innerHTML, 
+    start = document.getElementById("start").innerHTML, 
+    usedWords = document.getElementById("used-words").innerHTML
+)
+{
+    document.getElementById("scramble").innerHTML = scramble;
+    document.getElementById("word").innerHTML = word;
+    document.getElementById("message").innerHTML = message;
+    document.getElementById("reveal").innerHTML = reveal;
+    document.getElementById("score").innerHTML = score;
+    document.getElementById("start").innerHTML = start;
+    document.getElementById("used-words").innerHTML = usedWords;
 }
 
 document.addEventListener("DOMContentLoaded", () =>{
