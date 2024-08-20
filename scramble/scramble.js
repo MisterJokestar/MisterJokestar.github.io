@@ -191,6 +191,7 @@ function playGame()
     document.getElementById("reveal").innerHTML = "";
     document.getElementById("score").innerHTML = "Score: 0  |  Hints Used: 0";
     document.getElementById("start").innerHTML = "New Word!";
+    document.getElementById("used-words").innerHTML = "";
 }
 
 document.addEventListener("DOMContentLoaded", () =>{
