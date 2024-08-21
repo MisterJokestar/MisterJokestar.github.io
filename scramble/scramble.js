@@ -198,6 +198,7 @@ function playGame(num = -1)
 function daily()
 {
     localStorage.setItem("mode", "daily")
+    document.getElementById("mode").innerHTML = "Daily"
     var InnitialDate = new Date("January 01, 2024 00:00:00 UTC");
     var today = Date.now();
     var millisecsInDay = 86400000;
@@ -292,6 +293,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         else
         {
             localStorage.setItem("mode", "random");
+            document.getElementById("mode").innerHTML = "Random"
             document.getElementById("daily").hidden = false;
             playGame();
         }
