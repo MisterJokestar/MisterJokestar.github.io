@@ -146,7 +146,7 @@ class Game
 
 function submitWord()
 {
-    var game = new Game(JSON.parse(localStorage.getItem("game-object")));
+    var game = getGame();
     var guess = document.getElementById("guess").value.trim().toUpperCase();
     document.getElementById("guess").value = "";
     var scramble = undefined;
@@ -159,7 +159,7 @@ function submitWord()
             game.score += 5;
             game.message = "You unscrambled the word!"
             game.reveal = game.words[game.word];
-            scramble = game.words[game.word];
+            game.scramble = game.words[game.word];
             reveal = "";
             usedWords = "<li> * " + guess + " * </li>" + document.getElementById("used-words").innerHTML
         }
@@ -170,31 +170,71 @@ function submitWord()
             usedWords = "<li> " + guess + " </li>" + document.getElementById("used-words").innerHTML
         }
     }
-    localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
-
-    UpdateHtml(scramble, guess, game.message, reveal, ("Score: " + game.score + "  |  Hints Used: " + game.hintNum), undefined, usedWords);
+    setGame(game);
+    UpdateHtml(game.scramble, guess, game.message, reveal, ("Score: " + game.score + "  |  Hints Used: " + game.hintNum), undefined, usedWords);
 }
 
 function getHint()
 {
-    var game = new Game(JSON.parse(localStorage.getItem("game-object")));
+    var game = getGame();
     var hint = undefined;
     if (game.hint())
     {
         hint = game.reveal.join(" ");
     }
-    localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
+    setGame(game);
 
     UpdateHtml(undefined, undefined, game.message, hint, ("Score: " + game.score + "  |  Hints Used: " + game.hintNum), undefined, undefined);
 }
 
-function playGame()
+function playGame(num = -1)
 {
     var game = new Game();
-    game.createScramble();
-    localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
+    game.createScramble(num);
+    setGame(game);
     UpdateHtml(game.scramble, "", "", "", "Score: 0  |  Hints Used: 0", "New Word!", "");
 }
+
+function daily()
+{
+    localStorage.setItem("mode", "daily")
+    var InnitialDate = new Date("January 01, 2024 00:00:00 UTC");
+    var today = Date.now();
+    var millisecsInDay = 86400000;
+    var dayNum = Math.floor((today - InnitialDate) / millisecsInDay);
+    if (dayNum.toString() == localStorage.getItem("daily-num"))
+    {
+        var game = getGame();
+        var reveal = "";
+        var usedWords = "";
+        if (game.hintNum != 0 && game.reveal != game.scramble)
+        {
+            reveal = game.reveal;
+        }
+        for (word of game.testedWords)
+        {
+            if (game.reveal == game.scramble && word == game.scramble)
+            {
+                usedWords = "<li> * " + word + " * </li>" + usedWords
+            }
+            else
+            {
+                usedWords = "<li> " + word + " </li>" + usedWords;
+            }
+        }
+        UpdateHtml(game.scramble, "", "", reveal, ("Score: " + game.score + "  |  Hints Used: " + game.hintNum), "Random Word!", usedWords);
+    }
+    else
+    {
+        localStorage.setItem("daily-num", dayNum.toString())
+        playGame(dayNum);
+    }
+}
+
+// function randomGame()
+// {
+//     playGame()
+// }
 
 function UpdateHtml(
     scramble = document.getElementById("scramble").innerHTML, 
@@ -215,9 +255,54 @@ function UpdateHtml(
     document.getElementById("used-words").innerHTML = usedWords;
 }
 
+function getGame()
+{
+    var mode = localStorage.getItem("mode");
+    if (mode == "daily")
+    {
+        return new Game(JSON.parse(localStorage.getItem("daily")));
+    }
+    else
+    {
+        return new Game(JSON.parse(localStorage.getItem("game-object")));
+    }
+}
+
+function setGame(game)
+{
+    var mode = localStorage.getItem("mode");
+    if (mode == "daily")
+    {
+        localStorage.setItem("daily", JSON.stringify(game.getObjectSimplified()));
+    }
+    else
+    {
+        localStorage.setItem("game-object", JSON.stringify(game.getObjectSimplified()));
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () =>{
     const start = document.getElementById("start");
-    start.addEventListener('click', playGame);
+    start.addEventListener('click', () => 
+    {
+        if (start.innerHTML == " Start! ")
+        {
+            daily();
+        }
+        else
+        {
+            localStorage.setItem("mode", "random");
+            document.getElementById("daily").hidden = false;
+            playGame();
+        }
+    });
+
+    const dailyButton = document.getElementById("daily");
+    dailyButton.addEventListener('click', () =>
+    {
+        dailyButton.hidden = true;
+        daily();
+    })
 
     const text = document.getElementById("submit");
     text.addEventListener('click', submitWord)
@@ -228,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             if (event.key == "Enter") {
                 submitWord();
             }
-        })
+        });
 
     const hint = document.getElementById("hint");
     hint.addEventListener('click', getHint);
