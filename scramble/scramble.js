@@ -327,11 +327,13 @@ document.addEventListener("DOMContentLoaded", () =>{
     showInstructions.addEventListener('click', () => 
         {
             document.getElementById("instructions").hidden = false;
+            document.getElementById("show-instructions").hidden = true;
         });
 
     const hideInstructions = document.getElementById("hide-instructions");
     hideInstructions.addEventListener('click', () => 
         {
-            document.getElementById("instructions").hidden = true
+            document.getElementById("instructions").hidden = true;
+            document.getElementById("show-instructions").hidden = false;
         });
 });
