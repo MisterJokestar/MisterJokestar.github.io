@@ -48,9 +48,8 @@ h1.customfont {
     margin-top: 0%;
     margin-bottom: 0%;
     z-index: 2;
-    right: 10%;
-    left: 10%;
-    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 #used-words
 {
