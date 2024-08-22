@@ -288,6 +288,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     {
         if (start.innerHTML == " Start! ")
         {
+            document.getElementById("guess").hidden = false;
+            document.getElementById("submit").hidden = false;
+            document.getElementById("hint").hidden = false;
             daily();
         }
         else

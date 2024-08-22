@@ -6,6 +6,8 @@
 
         <link rel="stylesheet" href="../style.css">
         <script src="../script.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     </head>
     <body>
         <div id="main-back">
@@ -15,9 +17,9 @@
             <p id="word"></p>
             <button id="daily" hidden> Daily! </button>
             <button id="start"> Start! </button>
-            <input type="text" id="guess">
-            <button id="submit"> Guess! </button>
-            <button id="hint"> Need A Hint? </button>
+            <input type="text" id="guess" hidden>
+            <button id="submit" hidden> Guess! </button>
+            <button id="hint" hidden> Need A Hint? </button>
             <br>
             <p id="message"></p>
             <ul id="used-words"></ul>
@@ -25,7 +27,7 @@
         </div>
         <div id="night-toggle">
             <button id="night-toggle-b">Toggle Night Mode</button>
-            <p id="mode" class="text"></p>
+            <p id="mode" class="text" hidden></p>
         </div>
         <div id="instructions" hidden>
             <h1 class="text">How to play</h1>
