@@ -14,6 +14,7 @@ html, body
 {
     text-align: center;
     background-color: #CDD5D1;
+    min-height: 100%;
     margin: 10%;
     margin-top: 0%;
     margin-bottom: 0%;
