@@ -1,0 +1,23 @@
+.background {
+  background-color: #303030;
+}
+
+.main {
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: #707070;
+}
+
+.centered {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#letter-contents {
+  background-color: #d4b0d0;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
