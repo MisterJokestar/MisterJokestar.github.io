@@ -21,7 +21,17 @@ Your loving fiance,
 James
 `;
 
+function windowCheck() {
+  return window.innerWidth <= 800 && window.innerHeight <= 800;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  if (windowCheck()) {
+    document
+      .getElementById("stylesheet")
+      .setAttribute("href", "letter_mobile.css");
+  }
+
   const envelope = document.getElementById("letter-envelope");
 
   const letterText = document.getElementById("letter-text");
