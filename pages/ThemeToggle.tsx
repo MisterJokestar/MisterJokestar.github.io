@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { setTheme } from "./darkmode";
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
@@ -52,4 +51,17 @@ export function ThemeToggle() {
       )}
     </button>
   );
+}
+
+export function setTheme(theme: "light" | "dark" | "system") {
+  if (theme === "system") {
+    localStorage.removeItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    document.documentElement.classList.toggle("dark", prefersDark);
+  } else {
+    localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }
 }

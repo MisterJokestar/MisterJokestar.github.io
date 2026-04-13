@@ -1,3 +1,4 @@
+import React from "react";
 import jokestarLogo from "/assets/images/logos/JokestarLogoV1LIGHT.png";
 import soyjoke from "/assets/images/soyjakjames.png";
 
@@ -25,9 +26,13 @@ function Page() {
           <p className="text-text text-center">
             A Wizard in the arts of Software.
           </p>
-          <a className="text-textalt text-center">Learn more about me here.</a>
-          <a className="text-textalt text-center">View my resume here.</a>
-          <a className="text-textalt text-center">
+          <a href="/about" className="text-textalt text-center">
+            Learn more about me here.
+          </a>
+          <a href="/resume" className="text-textalt text-center">
+            View my resume here.
+          </a>
+          <a href="/games" className="text-textalt text-center">
             Or play some of my games here.
           </a>
           <p className="text-text text-center">
